@@ -7,7 +7,7 @@ export const MEDIA = {
     ricebag1: `${MEDIA_URL}/images/ricebag1.webp`,
   },
   about: {
-    factory: `${MEDIA_URL}/images/about/factory.web`,
+    factory: `${MEDIA_URL}/images/about/factory.webp`,
   },
   products: {
     basmati: `${MEDIA_URL}/images/products/basamati.webp`,
