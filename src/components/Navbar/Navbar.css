@@ -1,0 +1,65 @@
+/* Glass Navbar */
+.nav-glass {
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+/* Golden text shimmer */
+.logo-shimmer {
+  background: linear-gradient(
+    90deg,
+    #b8860b 0%,
+    #ffd700 40%,
+    #fff8dc 50%,
+    #ffd700 60%,
+    #b8860b 100%
+  );
+  background-size: 250% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 4s linear infinite;
+}
+
+@keyframes shimmer {
+  from {
+    background-position: -250%;
+  }
+  to {
+    background-position: 250%;
+  }
+}
+
+/* Menu underline */
+.nav-link {
+  position: relative;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 0;
+  height: 2px;
+  background: #d4a017;
+  transition: 0.35s ease;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* Quote button glow */
+.quote-btn {
+  transition: 0.35s;
+}
+
+.quote-btn:hover {
+  box-shadow: 0 15px 35px rgba(46, 125, 50, 0.35);
+}
+
+/* Mobile drawer shadow */
+.mobile-drawer {
+  box-shadow: -15px 0 40px rgba(0, 0, 0, 0.15);
+}
