@@ -3,26 +3,28 @@ import { useEffect, useState } from "react";
 
 export default function CustomCursor() {
   const [visible, setVisible] = useState(false);
-  const [hover, setHover] = useState(false);
+  const [hovered, setHovered] = useState(false);
   const [isTouch, setIsTouch] = useState(false);
 
+  // Mouse position values
   const mouseX = useMotionValue(-100);
   const mouseY = useMotionValue(-100);
 
-  const x = useSpring(mouseX, {
-    stiffness: 850,
-    damping: 42,
-    mass: 0.15,
-  });
+  // Precision instant dot tracking
+  const dotX = useSpring(mouseX, { stiffness: 1200, damping: 60, mass: 0.05 });
+  const dotY = useSpring(mouseY, { stiffness: 1200, damping: 60, mass: 0.05 });
 
-  const y = useSpring(mouseY, {
-    stiffness: 850,
-    damping: 42,
-    mass: 0.15,
-  });
+  // Smooth trailing outer ring
+  const ringX = useSpring(mouseX, { stiffness: 400, damping: 30, mass: 0.1 });
+  const ringY = useSpring(mouseY, { stiffness: 400, damping: 30, mass: 0.1 });
 
   useEffect(() => {
-    if (window.matchMedia("(pointer: coarse)").matches || 'ontouchstart' in window) {
+    if (
+      typeof window !== "undefined" &&
+      (window.matchMedia("(pointer: coarse)").matches ||
+        'ontouchstart' in window ||
+        navigator.maxTouchPoints > 0)
+    ) {
       setIsTouch(true);
       return;
     }
@@ -32,96 +34,93 @@ export default function CustomCursor() {
     const move = (e) => {
       mouseX.set(e.clientX);
       mouseY.set(e.clientY);
-      setVisible(true);
+      if (!visible) setVisible(true);
     };
 
-    window.addEventListener("mousemove", move);
+    const handleMouseOver = (e) => {
+      const target = e.target;
+      if (
+        target &&
+        target.closest &&
+        target.closest("button, a, input, textarea, select, [role='button'], .cursor-pointer")
+      ) {
+        setHovered(true);
+      } else {
+        setHovered(false);
+      }
+    };
 
     const leave = () => setVisible(false);
 
+    window.addEventListener("mousemove", move);
+    window.addEventListener("mouseover", handleMouseOver);
     document.addEventListener("mouseleave", leave);
-
-    const elements = document.querySelectorAll(
-      "button,a,input,textarea,.cursor-hover"
-    );
-
-    elements.forEach((el) => {
-      el.addEventListener("mouseenter", () => setHover(true));
-      el.addEventListener("mouseleave", () => setHover(false));
-    });
 
     return () => {
       window.removeEventListener("mousemove", move);
+      window.removeEventListener("mouseover", handleMouseOver);
       document.removeEventListener("mouseleave", leave);
       document.body.style.cursor = "default";
     };
-  }, []);
+  }, [mouseX, mouseY, visible]);
 
   if (isTouch) return null;
 
   return (
     <>
-      {/* Glow */}
-
+      {/* Subtle Ambient Glow */}
       <motion.div
         style={{
-          x,
-          y,
+          x: ringX,
+          y: ringY,
           translateX: "-50%",
           translateY: "-50%",
         }}
         animate={{
-          opacity: visible ? 0.25 : 0,
-          scale: hover ? 2.6 : 1.3,
+          opacity: visible ? (hovered ? 0.35 : 0.18) : 0,
+          scale: hovered ? 1.5 : 1,
         }}
-        className="pointer-events-none fixed left-0 top-0 z-[9995] h-24 w-24 rounded-full bg-emerald-400 blur-[60px]"
+        transition={{ duration: 0.3 }}
+        className="pointer-events-none fixed left-0 top-0 z-[9995] h-12 w-12 rounded-full bg-emerald-500 blur-xl"
       />
 
-      {/* Glass */}
-
+      {/* Modern Outer Ring */}
       <motion.div
         style={{
-          x,
-          y,
+          x: ringX,
+          y: ringY,
           translateX: "-50%",
           translateY: "-50%",
         }}
         animate={{
-          width: hover ? 54 : 32,
-          height: hover ? 54 : 32,
+          width: hovered ? 38 : 22,
+          height: hovered ? 38 : 22,
           opacity: visible ? 1 : 0,
-          rotate: hover ? 180 : 0,
+          borderColor: hovered ? "rgba(34, 197, 94, 0.8)" : "rgba(34, 197, 94, 0.4)",
+          backgroundColor: hovered ? "rgba(34, 197, 94, 0.08)" : "rgba(255, 255, 255, 0.05)",
         }}
         transition={{
           type: "spring",
-          stiffness: 300,
-          damping: 22,
+          stiffness: 380,
+          damping: 25,
         }}
-        className="pointer-events-none fixed left-0 top-0 z-[9998] rounded-full border border-white/40 bg-white/10 backdrop-blur-xl"
-        style={{
-          x,
-          y,
-          translateX: "-50%",
-          translateY: "-50%",
-          boxShadow:
-            "0 8px 32px rgba(255,255,255,.15),0 0 40px rgba(34,197,94,.25)",
-        }}
+        className="pointer-events-none fixed left-0 top-0 z-[9998] rounded-full border shadow-sm backdrop-blur-[2px]"
       />
 
-      {/* Dot */}
-
+      {/* Modern Small Center Dot */}
       <motion.div
         style={{
-          x,
-          y,
+          x: dotX,
+          y: dotY,
           translateX: "-50%",
           translateY: "-50%",
         }}
         animate={{
           opacity: visible ? 1 : 0,
-          scale: hover ? 0.4 : 1,
+          scale: hovered ? 1.4 : 1,
         }}
-        className="pointer-events-none fixed left-0 top-0 z-[9999] h-2 w-2 rounded-full bg-white"
+        transition={{ duration: 0.15 }}
+        className="pointer-events-none fixed left-0 top-0 z-[9999] h-2 w-2 rounded-full bg-emerald-600 shadow-[0_0_8px_rgba(34,197,94,0.9)]"
       />
     </>
   );

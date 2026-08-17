@@ -1,9 +1,11 @@
-import { memo } from "react";
-import { motion } from "framer-motion";
-import { Camera, Maximize2 } from "lucide-react";
+import { useState, memo } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Camera, Maximize2, X } from "lucide-react";
 import { MEDIA } from "../../config/media";
 
 function Gallery() {
+  const [activeImage, setActiveImage] = useState(null);
+
   return (
     <section
       id="gallery"
@@ -44,6 +46,7 @@ function Gallery() {
 
             <motion.div
               key={item.id}
+              onClick={() => setActiveImage(item)}
               initial={{
                 opacity: 0,
                 y: 60,
@@ -61,13 +64,15 @@ function Gallery() {
               whileHover={{
                 y: -12,
               }}
-              className="group overflow-hidden rounded-[24px] sm:rounded-[32px] bg-white shadow-xl border border-slate-100"
+              className="group overflow-hidden rounded-[24px] sm:rounded-[32px] bg-white shadow-xl border border-slate-100 cursor-pointer"
             >
               <div className="relative overflow-hidden">
 
                 <img
                   src={item.image}
                   alt={item.title}
+                  width={600}
+                  height={400}
                   loading="lazy"
                   decoding="async"
                   className="h-64 sm:h-80 w-full object-cover transition duration-700 group-hover:scale-110"
@@ -77,8 +82,8 @@ function Gallery() {
 
                   <motion.div
                     initial={{ scale: 0 }}
-                    whileHover={{ scale: 1 }}
-                    className="rounded-full bg-white p-3 sm:p-4 opacity-0 transition group-hover:opacity-100"
+                    whileHover={{ scale: 1.1 }}
+                    className="rounded-full bg-white p-3 sm:p-4 opacity-0 transition group-hover:opacity-100 shadow-xl"
                   >
                     <Maximize2 className="text-green-700 w-5 h-5 sm:w-6 sm:h-6" />
                   </motion.div>
@@ -114,6 +119,46 @@ function Gallery() {
         </div>
 
       </div>
+
+      {/* Lightbox Modal */}
+      <AnimatePresence>
+        {activeImage && (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setActiveImage(null)}
+              className="fixed inset-0 bg-slate-950/80 backdrop-blur-md"
+            />
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.9 }}
+              className="relative z-10 max-w-4xl w-full overflow-hidden rounded-3xl bg-slate-900 text-white shadow-2xl border border-slate-800"
+            >
+              <button
+                onClick={() => setActiveImage(null)}
+                aria-label="Close image preview"
+                className="absolute right-4 top-4 z-20 flex h-10 w-10 items-center justify-center rounded-full bg-slate-800/80 text-white hover:bg-slate-700 transition cursor-pointer"
+              >
+                <X size={20} />
+              </button>
+              <img
+                src={activeImage.image}
+                alt={activeImage.title}
+                className="max-h-[75vh] w-full object-contain bg-slate-950"
+              />
+              <div className="p-6 bg-slate-900 border-t border-slate-800 flex items-center justify-between">
+                <div>
+                  <h3 className="text-xl font-bold text-white">{activeImage.title}</h3>
+                  <p className="text-sm text-slate-400">Shree Swami Samarth Rice Mill Facility</p>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }

@@ -132,20 +132,37 @@ function Contact() {
 
             <div className="flex gap-3 sm:gap-4 pt-4 sm:pt-6">
 
-              {[Globe, Share2, MessageCircle].map(
-                (Icon, i) => (
+              {[
+                { icon: Globe, action: () => window.scrollTo({ top: 0, behavior: "smooth" }) },
+                {
+                  icon: Share2,
+                  action: () => {
+                    if (navigator.share) {
+                      navigator.share({ title: "Shree Swami Samarth Rice Mill", url: window.location.href }).catch(() => {});
+                    } else if (navigator.clipboard) {
+                      navigator.clipboard.writeText(window.location.href);
+                      alert("Website link copied to clipboard!");
+                    }
+                  },
+                },
+                { icon: MessageCircle, action: () => window.open("https://wa.me/918605194211", "_blank") },
+              ].map((item, i) => {
+                const Icon = item.icon;
+                return (
                   <motion.button
                     key={i}
+                    onClick={item.action}
                     whileHover={{
                       y: -5,
                       scale: 1.1,
                     }}
+                    aria-label={["Visit website", "Share contact", "Send WhatsApp message"][i]}
                     className="rounded-full bg-green-700 p-3 sm:p-4 text-white shadow-md cursor-pointer"
                   >
                     <Icon className="w-5 h-5 sm:w-6 sm:h-6" />
                   </motion.button>
-                )
-              )}
+                );
+              })}
 
             </div>
 

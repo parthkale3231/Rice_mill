@@ -49,9 +49,11 @@ function About() {
               <img
                 src={MEDIA.about.factory}
                 alt="Rice Mill Factory"
+                width={800}
+                height={500}
                 loading="lazy"
                 decoding="async"
-                className="rounded-2xl sm:rounded-3xl w-full object-cover"
+                className="rounded-2xl sm:rounded-3xl w-full h-auto object-cover"
               />
 
             </div>

@@ -104,7 +104,14 @@ function HeroContent({ onOpenQuote, onOpenFactory }) {
         {/* Explore */}
 
        
-         <MagneticButton className="w-full sm:w-auto justify-center text-center">
+         <MagneticButton
+           onClick={() => {
+             const el = document.querySelector("#products");
+             if (el) el.scrollIntoView({ behavior: "smooth" });
+           }}
+           aria-label="Explore Products"
+           className="w-full sm:w-auto justify-center text-center cursor-pointer"
+         >
             Explore Products
          </MagneticButton>       
          

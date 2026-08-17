@@ -1,17 +1,17 @@
 import { motion } from "framer-motion";
 
-const particles = Array.from({ length: 35 }, (_, i) => ({
+const particles = Array.from({ length: 8 }, (_, i) => ({
   id: i,
-  left: Math.random() * 100,
-  top: Math.random() * 100,
-  size: 16 + Math.random() * 20,
-  duration: 8 + Math.random() * 8,
-  delay: Math.random() * 5,
+  left: 10 + i * 11,
+  top: 15 + (i % 4) * 20,
+  size: 16 + (i % 3) * 6,
+  duration: 10 + (i % 3) * 4,
+  delay: i * 0.8,
 }));
 
 export default function FloatingRice() {
   return (
-    <div className="pointer-events-none absolute inset-0 overflow-hidden z-0 opacity-40">
+    <div className="pointer-events-none absolute inset-0 overflow-hidden z-0 opacity-30 hidden md:block">
 
       {particles.map((item) => (
         <motion.div

@@ -18,6 +18,7 @@ export default function TiltCard({
   });
 
   function handleMove(e) {
+    if (window.matchMedia("(pointer: coarse)").matches || 'ontouchstart' in window) return;
     const rect = e.currentTarget.getBoundingClientRect();
 
     const x = e.clientX - rect.left;

@@ -161,6 +161,7 @@ export default function Navbar({ onOpenQuote }) {
             <motion.button
               whileTap={{ scale: 0.9 }}
               onClick={() => setOpen(true)}
+              aria-label="Open navigation menu"
               className="lg:hidden w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white shadow-lg flex items-center justify-center cursor-pointer border border-slate-100 shrink-0"
             >
               <Menu size={22} />

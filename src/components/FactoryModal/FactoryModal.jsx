@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Play, Factory, CheckCircle, ShieldCheck, Flame } from "lucide-react";
+import { X, Play, Factory, CheckCircle, ShieldCheck } from "lucide-react";
 import { MEDIA } from "../../config/media";
 
 export default function FactoryModal({ isOpen, onClose }) {
@@ -23,6 +23,7 @@ export default function FactoryModal({ isOpen, onClose }) {
           >
             <button
               onClick={onClose}
+              aria-label="Close factory tour modal"
               className="absolute right-4 top-4 z-20 flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-full bg-slate-800/80 text-slate-300 hover:bg-slate-700 hover:text-white transition cursor-pointer"
             >
               <X size={18} />

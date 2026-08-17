@@ -34,7 +34,7 @@ export default function App() {
       />
       
       {/* Main Homepage Container */}
-      <div className={`transition-all duration-1000 ${introPlaying ? "opacity-0 scale-95 pointer-events-none" : "opacity-100 scale-100"}`}>
+      <div className={`transition-all duration-700 ${introPlaying ? "pointer-events-none" : "opacity-100"}`}>
         <Navbar onOpenQuote={() => setQuoteOpen(true)} />
         <Hero
           onOpenQuote={() => setQuoteOpen(true)}
@@ -42,7 +42,7 @@ export default function App() {
         />
         
         <About />
-        <Products />
+        <Products onOpenQuote={() => setQuoteOpen(true)} />
 
         <Suspense fallback={<div className="py-20 text-center text-slate-400">Loading experience...</div>}>
           <Process />

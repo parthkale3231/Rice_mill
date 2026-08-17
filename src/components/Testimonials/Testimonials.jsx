@@ -12,7 +12,7 @@ const testimonials = [
     id: 1,
     name: "Rahul Sharma",
     company: "Sharma Traders",
-    image: "/images/testimonials/1.jpg",
+    image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%2315803d'/%3E%3Ctext x='50%25' y='55%25' dominant-baseline='middle' text-anchor='middle' fill='%23ffffff' font-family='sans-serif' font-size='38' font-weight='bold'%3ERS%3C/text%3E%3C/svg%3E",
     review:
       "Outstanding rice quality and consistent supply. We've worked together for more than five years and have always received premium products on time.",
   },
@@ -20,7 +20,7 @@ const testimonials = [
     id: 2,
     name: "Amit Patel",
     company: "Patel Exports",
-    image: "/images/testimonials/2.jpg",
+    image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23b45309'/%3E%3Ctext x='50%25' y='55%25' dominant-baseline='middle' text-anchor='middle' fill='%23ffffff' font-family='sans-serif' font-size='38' font-weight='bold'%3EAP%3C/text%3E%3C/svg%3E",
     review:
       "Excellent export quality rice with professional packaging. Their team is reliable, responsive and maintains high quality standards.",
   },
@@ -28,7 +28,7 @@ const testimonials = [
     id: 3,
     name: "Sneha Enterprises",
     company: "Food Distributor",
-    image: "/images/testimonials/3.jpg",
+    image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%230369a1'/%3E%3Ctext x='50%25' y='55%25' dominant-baseline='middle' text-anchor='middle' fill='%23ffffff' font-family='sans-serif' font-size='38' font-weight='bold'%3ESE%3C/text%3E%3C/svg%3E",
     review:
       "One of the best rice mills we've partnered with. Modern processing, hygienic packaging and timely deliveries every time.",
   },
@@ -102,6 +102,10 @@ export default function Testimonials() {
             <img
               src={testimonials[current].image}
               alt={testimonials[current].name}
+              width={112}
+              height={112}
+              loading="lazy"
+              decoding="async"
               className="h-20 w-20 sm:h-28 sm:w-28 rounded-full border-4 border-white object-cover shadow-xl"
             />
 
@@ -145,6 +149,7 @@ export default function Testimonials() {
                 scale:.9,
               }}
               onClick={prev}
+              aria-label="Previous testimonial"
               className="rounded-full bg-white p-3 sm:p-4 shadow-lg border border-slate-100 cursor-pointer"
             >
               <ArrowLeft className="w-5 h-5 sm:w-6 sm:h-6 text-slate-700" />
@@ -158,6 +163,7 @@ export default function Testimonials() {
                 scale:.9,
               }}
               onClick={next}
+              aria-label="Next testimonial"
               className="rounded-full bg-green-700 p-3 sm:p-4 text-white shadow-lg cursor-pointer"
             >
               <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6" />

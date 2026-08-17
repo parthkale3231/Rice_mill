@@ -85,6 +85,7 @@ export default function MobileDrawer({ open, setOpen, onOpenQuote }) {
                 whileTap={{ scale: 0.9 }}
                 whileHover={{ rotate: 180 }}
                 onClick={() => setOpen(false)}
+                aria-label="Close navigation menu"
                 className="flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-full bg-slate-100 cursor-pointer shrink-0"
               >
                 <X size={20} />

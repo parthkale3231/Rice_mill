@@ -54,10 +54,12 @@ function HeroImage() {
       >
         <img
           src={MEDIA.hero.ricebag}
-          alt="Rice Bag"
+          alt="Shree Swami Samarth Rice Bag"
+          width={360}
+          height={360}
           fetchPriority="high"
           decoding="async"
-          className="w-[200px] sm:w-[320px] lg:w-[360px] object-contain drop-shadow-xl"
+          className="w-[200px] sm:w-[320px] lg:w-[360px] h-auto object-contain drop-shadow-xl"
         />
       </motion.div>
 

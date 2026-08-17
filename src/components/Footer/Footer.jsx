@@ -66,15 +66,23 @@ function Footer() {
 
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-0 rounded-2xl sm:rounded-full bg-transparent sm:bg-white p-0 sm:p-2">
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                window.open("https://wa.me/918605194211?text=" + encodeURIComponent("Hi, I would like to subscribe to newsletter updates for Shree Swami Samarth Rice Mill!"), "_blank");
+              }}
+              className="flex flex-col sm:flex-row gap-3 sm:gap-0 rounded-2xl sm:rounded-full bg-transparent sm:bg-white p-0 sm:p-2"
+            >
 
               <input
                 type="email"
+                required
                 placeholder="Enter Email"
                 className="w-full sm:flex-1 rounded-full px-5 py-3.5 sm:py-0 text-slate-900 outline-none bg-white text-sm sm:text-base"
               />
 
               <motion.button
+                type="submit"
                 whileHover={{
                   scale: 1.05,
                 }}
@@ -89,7 +97,7 @@ function Footer() {
 
               </motion.button>
 
-            </div>
+            </form>
 
           </div>
 
@@ -123,21 +131,36 @@ function Footer() {
 
             <div className="mt-6 sm:mt-8 flex gap-3 sm:gap-4">
 
-              {[Globe, Share2, MessageCircle].map(
-                (Icon, i) => (
-
+              {[
+                { icon: Globe, action: () => window.scrollTo({ top: 0, behavior: "smooth" }) },
+                {
+                  icon: Share2,
+                  action: () => {
+                    if (navigator.share) {
+                      navigator.share({ title: "Shree Swami Samarth Rice Mill", url: window.location.href }).catch(() => {});
+                    } else if (navigator.clipboard) {
+                      navigator.clipboard.writeText(window.location.href);
+                      alert("Website link copied to clipboard!");
+                    }
+                  },
+                },
+                { icon: MessageCircle, action: () => window.open("https://wa.me/918605194211", "_blank") },
+              ].map((item, i) => {
+                const Icon = item.icon;
+                return (
                   <motion.button
                     key={i}
+                    onClick={item.action}
                     whileHover={{
                       y: -6,
                     }}
+                    aria-label={["Visit website", "Share contact", "Contact via WhatsApp"][i]}
                     className="rounded-full bg-slate-800 p-3 sm:p-4 hover:bg-green-700 text-white cursor-pointer transition"
                   >
                     <Icon size={18} className="sm:w-5 sm:h-5" />
                   </motion.button>
-
-                )
-              )}
+                );
+              })}
 
             </div>
 
@@ -186,6 +209,10 @@ function Footer() {
 
                 <motion.p
                   key={item}
+                  onClick={() => {
+                    const el = document.querySelector("#products");
+                    if (el) el.scrollIntoView({ behavior: "smooth" });
+                  }}
                   whileHover={{
                     x: 8,
                   }}
@@ -235,7 +262,7 @@ function Footer() {
                 <MapPin className="text-green-400 shrink-0 w-5 h-5" />
 
                 <p className="text-sm sm:text-base text-slate-400">
-                  Pandhurli,Taluka Baglan, Nashik, Maharashtra, India
+                  Pandhurli, Nashik, Maharashtra, India
                 </p>
 
               </div>
@@ -265,6 +292,7 @@ function Footer() {
               scale: .9,
             }}
             onClick={scrollTop}
+            aria-label="Scroll back to top"
             className="rounded-full bg-green-700 p-3 sm:p-4 text-white shadow-lg cursor-pointer"
           >
             <ArrowUp className="w-5 h-5 sm:w-6 sm:h-6" />

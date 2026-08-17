@@ -60,6 +60,7 @@ export default function QuoteModal({ isOpen, onClose }) {
             {/* Close Button */}
             <button
               onClick={onClose}
+              aria-label="Close quote modal"
               className="absolute right-4 top-4 sm:right-5 sm:top-5 flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-full bg-slate-100 text-slate-500 hover:bg-slate-200 transition dark:bg-slate-800 dark:text-slate-400 cursor-pointer"
             >
               <X size={18} />

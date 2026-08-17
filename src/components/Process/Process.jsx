@@ -4,7 +4,6 @@ import {
   Wheat,
   Factory,
   ShieldCheck,
-  PackageCheck,
 } from "lucide-react";
 import { MEDIA } from "../../config/media";
 

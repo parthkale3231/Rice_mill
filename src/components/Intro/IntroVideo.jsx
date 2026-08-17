@@ -19,7 +19,7 @@ export default function IntroVideo({ isPlaying, onComplete }) {
             if (videoRef.current) {
               videoRef.current.muted = true;
               setIsMuted(true);
-              videoRef.current.play().catch(() => {});
+              videoRef.current.play().catch(() => { });
             }
           });
       }
@@ -60,9 +60,10 @@ export default function IntroVideo({ isPlaying, onComplete }) {
               src={MEDIA.hero.video}
               playsInline
               autoPlay
+              preload="auto"
               muted={isMuted}
               onEnded={onComplete}
-              className="h-full w-full object-cover opacity-90"
+              className="h-full w-full object-cover opacity-90 transform-gpu will-change-transform"
             />
 
             {/* Dark Gradient Overlay */}
@@ -88,6 +89,7 @@ export default function IntroVideo({ isPlaying, onComplete }) {
                 {/* Audio Toggle */}
                 <button
                   onClick={toggleMute}
+                  aria-label={isMuted ? "Unmute sound" : "Mute sound"}
                   className="flex h-9 w-9 sm:h-11 sm:w-11 items-center justify-center rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white hover:bg-white/20 transition cursor-pointer"
                   title={isMuted ? "Unmute Sound" : "Mute Sound"}
                 >
@@ -97,6 +99,7 @@ export default function IntroVideo({ isPlaying, onComplete }) {
                 {/* Skip Button */}
                 <button
                   onClick={onComplete}
+                  aria-label="Enter site and skip intro video"
                   className="group flex items-center gap-1.5 sm:gap-2 rounded-full bg-green-600 px-4 sm:px-6 py-2 sm:py-2.5 text-xs sm:text-base font-semibold text-white shadow-xl hover:bg-green-500 transition cursor-pointer"
                 >
                   <span>Enter</span>

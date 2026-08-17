@@ -85,7 +85,7 @@ const products = [
     },
 ];
 
-function Products() {
+function Products({ onOpenQuote }) {
     return (
         <section
             id="products"
@@ -130,7 +130,7 @@ function Products() {
 
                 <div className="mt-12 sm:mt-20 grid gap-6 sm:gap-8 grid-cols-1 sm:grid-cols-2 xl:grid-cols-4">
 
-                    {products.map((product, index) => (
+                    {products.map((product) => (
 
                              <TiltCard
                            key={product.id}
@@ -144,10 +144,12 @@ function Products() {
     }}
     transition={{
         repeat: Infinity,
-        duration: 3,
+        duration: 4,
         ease: "linear",
     }}
     className="
+    hidden
+    md:block
     absolute
     inset-y-0
     left-0
@@ -160,6 +162,8 @@ function Products() {
                                <motion.img
     src={product.image}
     alt={product.name}
+    width={400}
+    height={400}
     loading="lazy"
     decoding="async"
     whileHover={{
@@ -221,12 +225,14 @@ function Products() {
                                     </div>
 
                                     <motion.button
+                                        onClick={onOpenQuote}
                                         whileHover={{
                                             scale: 1.1,
                                         }}
                                         whileTap={{
                                             scale: .9,
                                         }}
+                                        aria-label={`Get quote for ${product.name}`}
                                         className="rounded-full bg-green-700 p-2.5 sm:p-3 text-white cursor-pointer"
                                     >
                                         <ArrowRight size={16} className="sm:w-[18px] sm:h-[18px]" />
@@ -275,6 +281,7 @@ function Products() {
                         </div>
 
                         <motion.button
+                            onClick={onOpenQuote}
                             whileHover={{
                                 scale: 1.05,
                             }}
