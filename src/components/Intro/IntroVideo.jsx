@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Volume2, VolumeX, SkipForward, Sparkles } from "lucide-react";
 import { MEDIA } from "../../config/media";
 
-const INTRO_DURATION_SEC = 2.75;
+const INTRO_DURATION_SEC = typeof window !== "undefined" && window.innerWidth < 768 ? 1.4 : 1.6;
 
 export default function IntroVideo({ isPlaying, onComplete }) {
   const videoRef = useRef(null);
