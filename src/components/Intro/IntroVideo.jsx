@@ -3,40 +3,72 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Volume2, VolumeX, SkipForward, Sparkles } from "lucide-react";
 import { MEDIA } from "../../config/media";
 
-const INTRO_DURATION_SEC = typeof window !== "undefined" && window.innerWidth < 768 ? 1.4 : 1.6;
+const INTRO_DURATION_SEC = 7;
 
 export default function IntroVideo({ isPlaying, onComplete }) {
   const videoRef = useRef(null);
-  const [isMuted, setIsMuted] = useState(true);
+  const [isMuted, setIsMuted] = useState(false);
 
   useEffect(() => {
     if (isPlaying) {
+      const unmuteVideo = () => {
+        if (videoRef.current) {
+          videoRef.current.muted = false;
+          videoRef.current.volume = 1.0;
+          setIsMuted(false);
+        }
+      };
+
       if (videoRef.current) {
         videoRef.current.currentTime = 0;
-        videoRef.current
-          .play()
-          .catch(() => {
-            if (videoRef.current) {
-              videoRef.current.muted = true;
-              setIsMuted(true);
-              videoRef.current.play().catch(() => { });
-            }
-          });
+        videoRef.current.volume = 1.0;
+        videoRef.current.muted = false;
+
+        const playPromise = videoRef.current.play();
+        if (playPromise !== undefined) {
+          playPromise
+            .then(() => {
+              if (videoRef.current) {
+                videoRef.current.muted = false;
+                setIsMuted(false);
+              }
+            })
+            .catch(() => {
+              // Browser blocked unmuted autoplay without prior gesture.
+              // Fallback to muted playback and unmute on first interaction.
+              if (videoRef.current) {
+                videoRef.current.muted = true;
+                setIsMuted(true);
+                videoRef.current.play().catch(() => { });
+              }
+            });
+        }
       }
+
+      window.addEventListener("click", unmuteVideo, { once: true });
+      window.addEventListener("touchstart", unmuteVideo, { once: true });
+      window.addEventListener("keydown", unmuteVideo, { once: true });
 
       // Auto-complete after exactly INTRO_DURATION_SEC
       const timer = setTimeout(() => {
         onComplete();
       }, INTRO_DURATION_SEC * 1000);
 
-      return () => clearTimeout(timer);
+      return () => {
+        clearTimeout(timer);
+        window.removeEventListener("click", unmuteVideo);
+        window.removeEventListener("touchstart", unmuteVideo);
+        window.removeEventListener("keydown", unmuteVideo);
+      };
     }
   }, [isPlaying, onComplete]);
 
   const toggleMute = () => {
     if (videoRef.current) {
-      videoRef.current.muted = !videoRef.current.muted;
-      setIsMuted(videoRef.current.muted);
+      const nextMuted = !videoRef.current.muted;
+      videoRef.current.muted = nextMuted;
+      videoRef.current.volume = nextMuted ? 0 : 1.0;
+      setIsMuted(nextMuted);
     }
   };
 
@@ -54,7 +86,16 @@ export default function IntroVideo({ isPlaying, onComplete }) {
           className="fixed inset-0 z-[999] flex items-center justify-center bg-slate-950 text-white overflow-hidden select-none"
         >
           {/* Background Video */}
-          <div className="relative h-full w-full flex items-center justify-center">
+          <div
+            onClick={() => {
+              if (isMuted && videoRef.current) {
+                videoRef.current.muted = false;
+                videoRef.current.volume = 1.0;
+                setIsMuted(false);
+              }
+            }}
+            className="relative h-full w-full flex items-center justify-center cursor-pointer"
+          >
             <video
               ref={videoRef}
               src={MEDIA.hero.video}
@@ -63,11 +104,23 @@ export default function IntroVideo({ isPlaying, onComplete }) {
               preload="auto"
               muted={isMuted}
               onEnded={onComplete}
-              className="h-full w-full object-cover opacity-90 transform-gpu will-change-transform"
+              className="h-full w-full object-cover opacity-100 transform-gpu will-change-transform"
             />
 
-            {/* Dark Gradient Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-slate-950/70" />
+            {/* Unmute Sound Prompt Badge (shown when browser blocks unmuted autoplay) */}
+            <AnimatePresence>
+              {isMuted && (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9, y: 10 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.9, y: 10 }}
+                  className="absolute top-20 sm:top-24 z-30 flex items-center gap-2 rounded-full bg-yellow-400 text-slate-950 px-4 py-2 text-xs sm:text-sm font-bold shadow-xl animate-bounce hover:bg-yellow-300 transition"
+                >
+                  <VolumeX size={16} />
+                  <span>Click anywhere to enable sound</span>
+                </motion.div>
+              )}
+            </AnimatePresence>
 
             {/* Top Bar */}
             <div className="absolute top-0 left-0 right-0 p-4 sm:p-8 flex items-center justify-between z-20 gap-2">
