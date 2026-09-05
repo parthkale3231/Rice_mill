@@ -1,6 +1,8 @@
 import { MEDIA_URL } from "./config";
 
 export const MEDIA = {
+  intrologo: `${MEDIA_URL}/images/logo.webp`,
+  logo: `${MEDIA_URL}/images/converted.webp`,
   hero: {
     video: `${MEDIA_URL}/videos/hero.mp4`,
     ricebag: `${MEDIA_URL}/images/ricebag.webp`,

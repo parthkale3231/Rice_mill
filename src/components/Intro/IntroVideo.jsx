@@ -2,7 +2,6 @@ import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Volume2, VolumeX, SkipForward, Sparkles } from "lucide-react";
 import { MEDIA } from "../../config/media";
-
 const INTRO_DURATION_SEC = 7;
 
 export default function IntroVideo({ isPlaying, onComplete }) {
@@ -125,8 +124,16 @@ export default function IntroVideo({ isPlaying, onComplete }) {
             {/* Top Bar */}
             <div className="absolute top-0 left-0 right-0 p-4 sm:p-8 flex items-center justify-between z-20 gap-2">
               <div className="flex items-center gap-2 sm:gap-3">
-                <div className="flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-full bg-green-500/20 border border-green-500/40 text-green-400 shrink-0">
-                  <Sparkles size={16} className="sm:w-5 sm:h-5" />
+                <div className="relative h-9 w-9 sm:h-11 sm:w-11 rounded-full overflow-hidden flex items-center justify-center shrink-0 shadow-md bg-[#FAF6ED]">
+                  <img
+                    src={MEDIA.intrologo}
+                    alt="Shree Swami Samarth Rice Mill Logo"
+                    className="w-full h-full object-cover object-center"
+                    style={{
+                      transform: "scale(1.68)",
+                      transformOrigin: "47.46% 47.5%",
+                    }}
+                  />
                 </div>
                 <div>
                   <h3 className="font-bold text-xs sm:text-base tracking-wide text-white leading-tight">
