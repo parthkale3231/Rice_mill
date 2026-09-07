@@ -13,7 +13,7 @@ export const MEDIA = {
   },
   products: {
     basmati: `${MEDIA_URL}/images/products/basamati.webp`,
-    indrayani: `${MEDIA_URL}/images/products/Indrayani.webp`,
+    indrayani: `${MEDIA_URL}/images/Indrayani.webp`,
     kolam: `${MEDIA_URL}/images/products/kolam.webp`,
     kolapi: `${MEDIA_URL}/images/products/kolapi.webp`,
     jeera: `${MEDIA_URL}/images/products/jeera.webp`,
