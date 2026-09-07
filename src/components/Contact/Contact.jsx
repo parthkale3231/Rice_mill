@@ -33,7 +33,7 @@ function Contact() {
   return (
     <section
       id="contact"
-      className="relative overflow-hidden bg-[#FCFBF6] py-16 sm:py-24 lg:py-28"
+      className="relative overflow-hidden bg-[#FCFBF6] py-16 sm:py-24 lg:py-28 scroll-mt-24"
     >
       {/* Background */}
 
@@ -82,23 +82,27 @@ function Contact() {
             {[
               {
                 icon: Phone,
-                title: "Phone",
-                value: "+91 8605194211",
+                title: "Phone & WhatsApp",
+                value: "+91 8605194211 / +91 9370107793",
+                href: "tel:+918605194211",
               },
               {
                 icon: Mail,
                 title: "Email",
                 value: "info@ricesamarth.com",
+                href: "mailto:info@ricesamarth.com",
               },
               {
                 icon: MapPin,
-                title: "Address",
+                title: "Mill Address",
                 value: "Shree Swami Samarth Rice Mill, Ghoti-Shirdi Rd, Maharashtra",
+                href: null,
               },
               {
                 icon: Clock,
                 title: "Working Hours",
-                value: "Mon - Sat : 9 AM - 7 PM",
+                value: "Mon - Sat : 9:00 AM - 7:00 PM",
+                href: null,
               },
             ].map((item) => {
               const Icon = item.icon;
@@ -120,9 +124,18 @@ function Contact() {
                       {item.title}
                     </h3>
 
-                    <p className="mt-1 text-xs sm:text-sm text-slate-500">
-                      {item.value}
-                    </p>
+                    {item.href ? (
+                      <a
+                        href={item.href}
+                        className="mt-1 block text-xs sm:text-sm font-medium text-emerald-700 hover:text-emerald-800 transition-colors"
+                      >
+                        {item.value}
+                      </a>
+                    ) : (
+                      <p className="mt-1 text-xs sm:text-sm text-slate-500">
+                        {item.value}
+                      </p>
+                    )}
                   </div>
                 </motion.div>
               );

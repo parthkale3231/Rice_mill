@@ -6,7 +6,7 @@ import Logo from "./Logo";
 import MobileDrawer from "./MobileDrawer";
 
 const navItems = [
-  { name: "Home", href: "#" },
+  { name: "Home", href: "#home" },
   { name: "About", href: "#about" },
   { name: "Products", href: "#products" },
   { name: "Process", href: "#process" },
@@ -20,12 +20,29 @@ export default function Navbar({ onOpenQuote }) {
   const [active, setActive] = useState("Home");
 
   useEffect(() => {
+    const sections = [
+      { id: "home", name: "Home" },
+      { id: "about", name: "About" },
+      { id: "products", name: "Products" },
+      { id: "process", name: "Process" },
+      { id: "gallery", name: "Gallery" },
+      { id: "contact", name: "Contact" },
+    ];
+
     const handleScroll = () => {
       setScrolled(window.scrollY > 30);
+
+      const scrollPos = window.scrollY + 220;
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const sec = document.getElementById(sections[i].id);
+        if (sec && sec.offsetTop <= scrollPos) {
+          setActive(sections[i].name);
+          break;
+        }
+      }
     };
 
-    window.addEventListener("scroll", handleScroll);
-
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 

@@ -9,6 +9,7 @@ import Footer from "./components/Footer/Footer";
 import CustomCursor from "./components/common/CustomCursor";
 import ScrollProgress from "./components/common/ScrollProgress";
 import SmoothScroll from "./components/common/SmoothScroll";
+import WhatsAppButton from "./components/common/WhatsAppButton";
 
 // Lazy-loaded components for optimal initial bundle size
 const Process = lazy(() => import("./components/Process/Process"));
@@ -52,6 +53,7 @@ export default function App() {
 
         <Contact />
         <Footer />
+        <WhatsAppButton />
       </div>
 
       {/* Modals */}

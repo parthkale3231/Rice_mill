@@ -1,13 +1,10 @@
 import { memo } from "react";
 import { motion } from "framer-motion";
 import {
-  ArrowRight,
   PlayCircle,
   BadgeCheck,
-  Mouse,
 } from "lucide-react";
 
-import HeroStats from "./HeroStats";
 import MagneticButton from "../common/MagneticButton";
 
 const title = "SHREE SWAMI SAMARTH RICE MILL".split("");
@@ -138,29 +135,25 @@ function HeroContent({ onOpenQuote, onOpenFactory }) {
 
       </motion.div>
 
-      {/* Stats */}
-
-     <div className="mt-10 sm:mt-16">
-     <HeroStats />
-      </div>
-
-      {/* Scroll */}
-
+      {/* Trust Badges Row */}
       <motion.div
-        animate={{
-          y: [0, 12, 0],
-        }}
-        transition={{
-          repeat: Infinity,
-          duration: 2,
-        }}
-        className="mt-10 sm:mt-16 flex items-center gap-3 text-slate-500"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.3 }}
+        className="mt-8 sm:mt-10 pt-6 sm:pt-8 border-t border-slate-200/60 flex flex-wrap items-center gap-x-6 gap-y-2.5 text-xs sm:text-sm font-semibold text-slate-700"
       >
-        <Mouse size={20} />
-
-        <span className="text-xs sm:text-sm uppercase tracking-[3px] sm:tracking-[4px]">
-          Scroll to Explore
-        </span>
+        <div className="flex items-center gap-1.5">
+          <span className="flex h-5 w-5 items-center justify-center rounded-full bg-emerald-100 text-emerald-800 text-[10px] font-black">✓</span>
+          <span>100% Sortex Cleaned</span>
+        </div>
+        <div className="flex items-center gap-1.5">
+          <span className="flex h-5 w-5 items-center justify-center rounded-full bg-amber-100 text-amber-800 text-[10px] font-black">✓</span>
+          <span>Direct Mill Pricing</span>
+        </div>
+        <div className="flex items-center gap-1.5">
+          <span className="flex h-5 w-5 items-center justify-center rounded-full bg-emerald-100 text-emerald-800 text-[10px] font-black">✓</span>
+          <span>Pan-India & Export Supply</span>
+        </div>
       </motion.div>
 
     </div>

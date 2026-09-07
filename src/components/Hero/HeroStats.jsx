@@ -23,38 +23,42 @@ const stats = [
     icon: Factory,
     number: 25,
     suffix: "+",
-    title: "Years Experience",
-    color: "from-green-700 to-green-500",
+    title: "Years of Trust",
+    subtitle: "Pioneering quality since 1998",
+    color: "from-emerald-700 to-emerald-500",
   },
   {
     id: 2,
     icon: Globe2,
     number: 10,
     suffix: "+",
-    title: "Variety",
-    color: "from-yellow-600 to-yellow-400",
+    title: "Rice Varieties",
+    subtitle: "Basmati, Kolam, Indrayani & more",
+    color: "from-amber-600 to-yellow-500",
   },
   {
     id: 3,
     icon: Users,
     number: 500,
     suffix: "+",
-    title: "Happy Dealers",
-    color: "from-green-700 to-emerald-500",
+    title: "Distributor Network",
+    subtitle: "Pan-India & export partners",
+    color: "from-emerald-700 to-teal-500",
   },
   {
     id: 4,
     icon: Wheat,
     number: 50000,
     suffix: "+",
-    title: "Tons Produced",
-    color: "from-orange-500 to-yellow-400",
+    title: "Metric Tons Milled",
+    subtitle: "High capacity Sortex plant",
+    color: "from-amber-700 to-orange-500",
   },
 ];
 
 export default function HeroStats() {
   return (
-    <div className="mt-8 sm:mt-12 grid gap-2.5 sm:gap-3.5 grid-cols-2 lg:grid-cols-4">
+    <div className="w-full grid gap-3 sm:gap-5 grid-cols-2 lg:grid-cols-4">
 
       {stats.map((item, index) => {
         const Icon = item.icon;
@@ -112,9 +116,15 @@ export default function HeroStats() {
 
             {/* Title */}
 
-            <p className="mt-1 text-[11px] sm:text-sm font-medium text-slate-500 leading-tight">
+            <p className="mt-1 text-xs sm:text-sm font-bold text-slate-800 leading-tight">
               {item.title}
             </p>
+
+            {item.subtitle && (
+              <p className="mt-0.5 text-[10px] sm:text-xs text-slate-500 hidden sm:block">
+                {item.subtitle}
+              </p>
+            )}
 
             {/* Hover Line */}
 
@@ -122,7 +132,7 @@ export default function HeroStats() {
               initial={{ width: 0 }}
               whileHover={{ width: "100%" }}
               transition={{ duration: 0.4 }}
-              className={`mt-2.5 sm:mt-4 h-1 rounded-full bg-gradient-to-r ${item.color}`}
+              className={`mt-2 sm:mt-3 h-1 rounded-full bg-gradient-to-r ${item.color}`}
             />
           </motion.div>
         );

@@ -15,14 +15,14 @@ const features = [
   "Premium Quality Rice",
   "Modern Milling Technology",
   "Timely Delivery",
-  "Packaging",
+  "Multi-layer Moisture Proof Packaging",
 ];
 
 function About() {
   return (
     <section
       id="about"
-      className="relative overflow-hidden bg-[#FCFBF6] py-16 sm:py-24 lg:py-28"
+      className="relative overflow-hidden bg-[#FCFBF6] py-16 sm:py-24 lg:py-28 scroll-mt-24"
     >
       {/* Background */}
       <div className="absolute right-0 top-0 h-[250px] w-[250px] sm:h-[450px] sm:w-[450px] rounded-full bg-yellow-300/20 blur-2xl sm:blur-3xl" />

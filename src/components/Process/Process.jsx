@@ -50,7 +50,7 @@ export default function Process() {
   return (
     <section
       id="process"
-      className="bg-[#FCFBF6] py-16 sm:py-24 lg:py-28 overflow-hidden"
+      className="bg-[#FCFBF6] py-16 sm:py-24 lg:py-28 overflow-hidden scroll-mt-24"
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <motion.div
@@ -77,6 +77,9 @@ export default function Process() {
         </motion.div>
 
         <div className="relative mt-12 sm:mt-24">
+          {/* Subtle Vertical Workflow Spine for Desktop */}
+          <div className="hidden lg:block absolute left-1/2 top-10 bottom-10 w-0.5 -translate-x-1/2 border-l-2 border-dashed border-emerald-300/60 pointer-events-none" />
+
           <div className="space-y-10 sm:space-y-20">
             {steps.map((step, index) => {
               const Icon = step.icon;
