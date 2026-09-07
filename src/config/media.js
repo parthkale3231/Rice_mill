@@ -12,10 +12,10 @@ export const MEDIA = {
     factory: `${MEDIA_URL}/images/about/factory.webp`,
   },
   products: {
-    basmati: `${MEDIA_URL}/images/products/basamati.webp`,
+    basmati: `${MEDIA_URL}/images/products/basmati1.webp`,
     indrayani: `${MEDIA_URL}/images/Indrayani.webp`,
-    kolam: `${MEDIA_URL}/images/products/kolam.webp`,
-    kolapi: `${MEDIA_URL}/images/products/kolapi.webp`,
+    kolam: `${MEDIA_URL}/images/products/kolam1.webp`,
+    kolapi: `${MEDIA_URL}/images/products/kolpi1.webp`,
     jeera: `${MEDIA_URL}/images/products/jeera.webp`,
   },
   gallery: [
